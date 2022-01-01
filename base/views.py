@@ -32,12 +32,6 @@ def userProfile(request, pk):
     user = User.objects.get(id=pk)
     context = {'user': user}
     return render(request, 'base/profile.html', context)
-def search(request)
-if request.method == 'POST':
-    stock_name=request.POST['text'].capitalize()
-    stock_code=pd.read_csv("stock_code.csv")
-    print(stock_code.head())
-stock_code = stock_code.loc[stock_code['Stock'] == stock_name, 'Stock_code'].iloc[0]
 def loginPage(request):
     if request.user.is_authenticated:
         return redirect('home')
