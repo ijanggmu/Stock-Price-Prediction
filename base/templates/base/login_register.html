@@ -1,0 +1,51 @@
+{% extends 'base/main.html' %}
+{% block content %}
+{% load static %}
+    <!--ErrorMsg-->
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    <!--//ErrorMsg-->
+    <div class="cont">
+    <!--Login-->
+    {% if page == 'login' %}
+    <div class="form sign-in">
+      <h1>Login</h1>
+      <form method="POST" action="">
+        {% csrf_token %}
+        <div class="txt_field">
+          <i class="fas fa-user"></i>
+        <input type="text" name="username" placeholder="Enter Username" />
+        </div>
+        <div class="txt_field">
+          <i class="fas fa-lock"></i>
+        <input type="password" name="password" placeholder="Enter Password" />
+          </div>
+        <input type="submit" value="login"/>
+      </form>
+      <div class="signup_link">
+      <p>haven't signed up yet?</p>
+      <a href="{% url 'register' %}">Sign Up</a>
+    </div>
+    <!--//Login-->
+    {% else %}
+<!--Register-->
+      <form method="POST" action="" class="sign-up-form">
+        <h2 class="title">Sign up</h2>
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" class="btn" value="Register" />
+      </form>
+      <p>Already Sign Up</p>
+      <a href="{% url 'login' %}">Login</a>
+      </div>
+    </div>
+    </div>
+    {% endif %}
+    <!--//Register-->
+    {% endblock %}
+
