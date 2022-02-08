@@ -1,45 +1,49 @@
-
-{% extends 'base/main.html' %}
-{% block content %}
-{% load static %}
+{% extends 'base/main.html' %} {% block content %} {% load static %}
 
 <!-- HERO -->
 <div
-style="background-image: url('{% static 'images/cover123.jpg' %}')"
-class="hero vh-100 d-flex align-items-center" id="home"
+  style="background-image: url('{% static 'images/cover123.jpg' %}')"
+  class="hero vh-100 d-flex align-items-center"
+  id="home"
 >
-<div class="container">
-  <div class="row">
-    <div class="col-lg-7 mx-auto text-center">
-      <h1 class="display-4 text-white">
-        Stock Prediction Using AI and RNN
-      </h1>
-       <!--Search bar-->
-       <div class="main-search-input-wrap">
-        <div class="main-search-input fl-wrap">
-          <div class="main-search-input-item">
-            <input
-              type="text"
-              value=""
-              placeholder="Search Stock"
-            />
-          </div>
-          <button class="main-search-button">Search</button>
-        </div>
-      </div>
-      <!--//Search bar-->
+  <div class="container">
+    <div class="row">
       <div class="col-lg-7 mx-auto text-center">
-        <p class="text-white my-3">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-          Inventore laboriosam tempora tempore atque. Accusamus quaerat
-          vero dicta. Amet ipsum, cumque ipsa obcaecati, architecto ex
-          blanditiis dicta mollitia quis magnam temporibus.
-        </p>
+        <h1 class="display-4 text-white">Stock Prediction Using AI and RNN</h1>
+        <!--Search bar-->
+        <form method="Post" action="/search/">
+          {%csrf_token%}
+          <div class="main-search-input-wrap">
+            <div class="main-search-input fl-wrap">
+              <div class="main-search-input-item">
+                <input
+                  required
+                  name="search_text"
+                  type="text"
+                  value=""
+                  placeholder="Search Stock"
+                />
+              </div>
+              <button class="main-search-button" name="lstm" type="submit">
+                Search
+              </button>
+            </div>
+          </div>
+        </form>
+        <!--//Search bar-->
+        <div class="col-lg-7 mx-auto text-center">
+          <p class="text-white my-3">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore
+            laboriosam tempora tempore atque. Accusamus quaerat vero dicta. Amet
+            ipsum, cumque ipsa obcaecati, architecto ex blanditiis dicta
+            mollitia quis magnam temporibus.
+          </p>
+        </div>
+        <a href="#" class="btn me-2 btn-primary">Get Started</a>
+        <a href="#" class="btn btn-outline-light">My Profile</a>
       </div>
-      <a href="#" class="btn me-2 btn-primary">Get Started</a>
-      <a href="#" class="btn btn-outline-light">My Profile</a>
     </div>
   </div>
 </div>
-</div> 
-{% endblock %}
+{%include 'base/features.html'%} {%include 'base/team.html'%}
+{%include 'base/contact.html'%} {% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base/main.html' %} {% block content %} {% load static %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- HERO -->
+<h1>Prediction of {{search_text}}</h1>
+<h2>Predictions</h2>
+<br />
+{{predictions}} 
+<!-- {%if chart%}
+<img src="data:image/png;base64, {{chart|safe}}"
+{% endif %} -->
+
+
+{% endblock %}
