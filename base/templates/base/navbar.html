@@ -24,9 +24,9 @@
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{%url 'home'%}">HOME</a>
             </li>
-            <li class="nav-item">
+            {% comment %} <li class="nav-item">
               <a class="nav-link" href="#features">FEATURES</a>
-            </li>
+            </li> {% endcomment %}
             <li class="nav-item">
               <a class="nav-link" href="#team">TEAMS</a>
             </li>
@@ -37,14 +37,14 @@
               <a class="nav-link" href="#about">ABOUT</a>
             </li>
           </ul>
-          <button class="btn btn-primary" ms-lg-3>
+          {% comment %} <button class="btn btn-primary" ms-lg-3>
             <!--login-->
             {%if request.user.is_authenticated %}
             <p>Hello {{request.user}}</p>
             <a href="{%url 'logout'%}">Logout</a>
             {% else %}
             <a href="{%url 'register'%}">JOIN US</a>
-            {% endif %}
+            {% endif %} {% endcomment %}
           </button>
         </div>
       </div>

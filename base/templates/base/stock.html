@@ -1,1 +1,10 @@
-<h1>Stock</h1>
+{% extends 'base/main.html' %} {% block content %} {% load static %}
+<h1>CSV FILE upload
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="document" id="document" required="required"></input>
+    <input type="text" name="text" id="text" required="required"></br>title</br></input>
+    <button id="submit">Upload</button>
+
+</form>
+{%endblock%}

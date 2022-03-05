@@ -1,13 +1,61 @@
 {% extends 'base/main.html' %} {% block content %} {% load static %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <!-- HERO -->
-<h1>Prediction of {{search_text}}</h1>
-<h2>Predictions</h2>
-<br />
-{{predictions}} 
-<!-- {%if chart%}
-<img src="data:image/png;base64, {{chart|safe}}"
-{% endif %} -->
+<section class="row w-100 py-5 justify-content-center bg-light" id="features">
+    <h1>Prediction of {{search_text}}</h1>
+<div class="col-lg-4"><table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Actial Price</th>
+      <th scope="col">Predicted Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%for i in final %}
+    <tr>
+      <td>{{i.Date|date:"M d, Y"}}</td>
+      <td>{{i.Close}}</td>
+      <td>{{i.prediction}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table></div>
+<div class="col-lg-4 py-5">
+  <canvas id="myChart" width="400" height="400"></canvas>
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: [{% for i in final %}{{i.Date|date:"d"}},{% endfor %}],
+        datasets: [{
+            label: 'Actual Price',
+            data: [{% for i in final %}{{i.Close}},{% endfor %}]
+    },
+    {
+      label: 'Prediction Price',
+      data:[{% for i in final %}{{i.prediction}},{% endfor %}]
+   }]
+   },
+    options: {
+        scales: {
+            xAxes: [{
+              display: true
+                }],
+            yAxes:[{
+              ticks:{
+                beginAtZero: true
+              }
+            }]
+            }
+        }
+    });
+</script>
+</div>
+<div>
+</section>
 
 
 {% endblock %}

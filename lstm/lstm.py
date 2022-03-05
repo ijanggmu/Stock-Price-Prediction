@@ -1,3 +1,4 @@
+from http.client import PRECONDITION_FAILED
 from keras.layers import Dropout
 from keras.layers import LSTM
 from keras.layers import Dense
@@ -27,7 +28,8 @@ features_set = np.reshape(
 features_set.shape
 df_c = pd.read_csv(r'C:\Users\GGMU\Downloads\bokl_train.csv')
 df_c
-df_t_p = df_c.iloc[:, 1:2]
+df_t_p = df_c.iloc[:, 0:2]
+df_t_p
 df_total = pd.concat((df['Open'], df_c['Open']), axis=0)
 test_inputs = df_total[len(df_total) - len(df_c) - 60:].values
 test_inputs.shape
@@ -40,14 +42,23 @@ test_features = np.array(test_features)
 test_features = np.reshape(
     test_features, (test_features.shape[0], test_features.shape[1], 1))
 test_features.shape
-filename = "boklmodel.h5"
+filename = 'lstm/boklmodel.h5'
 loaded_model = load_model(filename)
 predictions = loaded_model.predict(test_features)
 predictions = scaler.inverse_transform(predictions)
 predictions
-plt.figure(figsize=(10, 6))
-plt.plot(df_t_p, color='blue', label='Actual BOKL Stock Price')
-plt.plot(predictions, color='red', label='Predicted BOKL Stock Price')
+pdf = pd.DataFrame(predictions, columns = ['prediction'])
+pdf
+df_t_p['prediction']=pdf
+df_t_p
+plt.figure(figsize=(15, 6))
+plt.plot(df_t_p.loc[:,'Date'],df_t_p.loc[:,'Open'], color='blue', label='Actual BOKL Stock Price')
+plt.plot(df_t_p.loc[:,'Date'],df_t_p.loc[:,'prediction'], color='red', label='Predicted BOKL Stock Price')
+plt.plot(df_t_p, color='red', label='Predicted BOKL Stock Price')
+# plt.plot(df_t_p, color='blue', label='Actual BOKL Stock Price')
+# plt.plot(predictions, color='red', label='Predicted BOKL Stock Price')
+plt.xticks(rotation=40)
+plt.grid(linewidth=1)
 plt.title('BOKL Stock Price Prediction')
 plt.xlabel('Date')
 plt.ylabel('BOKL')
