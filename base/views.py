@@ -143,7 +143,7 @@ def search(request):
         pdf = pd.DataFrame(predictions, columns = ['prediction'])
         # print(type(pdf))
         # print(pdf)
-        dtp['prediction']=pdf
+        dtp['prediction']=pdf.round()
         # print(dtp)
         
         # z=dtp.iloc[:,2:3]
@@ -196,19 +196,19 @@ def search(request):
         df_predict=pd.DataFrame(scaler.inverse_transform(forecast_list),index=dtp[-features_set.shape[1]:].index, 
                         columns=["prediction"])
         df_predict =pd.concat([dtp,df_predict],axis=1)
-        print(df_predict.tail())
         from pandas.tseries.offsets import DateOffset
         add_dates=[dtp.index[-1]+DateOffset(days=x) for x in range(0,61)]
         future_dates=pd.DataFrame(index=add_dates[1:],columns=dtp.columns)
         future_dates.tail(60)
         df_forecast=pd.DataFrame(scaler.inverse_transform(forecast_list),index=future_dates[-features_set.shape[1]:].index, columns=["prediction"])
         df_forecast =pd.concat([dtp,df_forecast],axis=1)
-        print(df_forecast.tail(60))
+        forecast_final=df_forecast.round().tail(60)
+        print(type(forecast_final))
+        print(forecast_final)
         context={'search_text':search_text,'predictions':predictions,'dtp':dtp,'final':final_data,'dat':index_d}
         return render(request, 'base/search.html',context)
 
 def stock(request):
-    
     if request.method =='POST':
         uploaded_file=request.FILES['document']
         title=request.POST['text']
@@ -246,7 +246,6 @@ def stock(request):
         features_set = np.reshape(
         features_set, (features_set.shape[0], features_set.shape[1], 1))
         features_set.shape
-        
         model = Sequential()
 
         model.add(LSTM(units=50, return_sequences=True,
