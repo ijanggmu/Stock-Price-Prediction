@@ -3,8 +3,8 @@
 
 <!-- HERO -->
 <section class="row w-100 py-5 justify-content-center bg-light" id="features">
-    <h1>Prediction of {{search_text}}</h1>
-<div class="col-lg-4"><table class="table table-dark">
+    <h1>Forecast of {{search_text}}</h1>
+{% comment %} <div class="col-lg-4"><table class="table table-dark">
   <thead>
     <tr>
       <th scope="col">Date</th>
@@ -21,6 +21,22 @@
     </tr>
     {% endfor %}
   </tbody>
+</table></div> {% endcomment %}
+<div class="col-lg-4"><table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Forecast Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%for i in forecast %}
+    <tr>
+      <td>{{i.index|date:"M d, Y"}}</td>
+      <td>{{i.prediction}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
 </table></div>
 <div class="col-lg-4 py-5">
   <canvas id="myChart" width="400" height="400"></canvas>
@@ -29,7 +45,7 @@ var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: [{% for i in final %}{{i.Date|date:"d"}},{% endfor %}],
+        labels: [{% for i in final %}{{i.Date|date:"m"}},{% endfor %}],
         datasets: [{
             label: 'Actual Price',
             data: [{% for i in final %}{{i.Close}},{% endfor %}]

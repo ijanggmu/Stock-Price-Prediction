@@ -145,7 +145,6 @@ def search(request):
         # print(pdf)
         dtp['prediction']=pdf.round()
         # print(dtp)
-        
         # z=dtp.iloc[:,2:3]
         # for i in z:
         #     print(type(i))
@@ -183,9 +182,9 @@ def search(request):
         dtp['Close']=column
         dtp['Date'] = pd.to_datetime(dtp['Date'], format='%Y/%m/%d')
         dtp=dtp.set_index('Date')
-        print(dtp)
+        # print(dtp)
         dtp.sort_values(["Date"],axis=0,ascending=[True], inplace=True)
-        print(dtp.tail())
+        # print(dtp.tail())
         forecast_list=[]
 
         batch=dfs[-features_set.shape[1]:].reshape((1,features_set.shape[1],1))
@@ -203,9 +202,14 @@ def search(request):
         df_forecast=pd.DataFrame(scaler.inverse_transform(forecast_list),index=future_dates[-features_set.shape[1]:].index, columns=["prediction"])
         df_forecast =pd.concat([dtp,df_forecast],axis=1)
         forecast_final=df_forecast.round().tail(60)
-        print(type(forecast_final))
-        print(forecast_final)
-        context={'search_text':search_text,'predictions':predictions,'dtp':dtp,'final':final_data,'dat':index_d}
+        # print(type(forecast_final))
+        # print(forecast_final.shape)
+        forecasts_final=forecast_final.reset_index()
+        forcast_data=[]
+        for i in range(forecasts_final.shape[0]):
+            temp=forecasts_final.iloc[i]
+            forcast_data.append(dict(temp))
+        context={'search_text':search_text,'predictions':predictions,'dtp':dtp,'final':final_data,'dat':index_d,'forecast':forcast_data}
         return render(request, 'base/search.html',context)
 
 def stock(request):
