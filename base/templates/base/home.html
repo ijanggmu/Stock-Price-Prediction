@@ -14,15 +14,19 @@
         <form method="Post" action="/search/">
           {%csrf_token%}
           <div class="main-search-input-wrap">
+            
             <div class="main-search-input fl-wrap">
               <div class="main-search-input-item">
-                <input
-                  required
-                  name="search_text"
-                  type="text"
-                  value=""
-                  placeholder="Search Stock"
-                />
+              <select name="search_text" class="main-search-input-item">
+                  <option value="none">Choose a Stock</option>
+                  <option value="bokl">Bank of Kathmandu (Bokl)</option>
+                  <option value="forward">Forward (Forward)</option>
+                  <option value="nbbbl">NIC Asia Bank(NICA)</option>
+                  <option value="ntc">Nepal Telecom Limited(NTC)</option>
+                  <option value="nica">NIC Asia Bank(NICA)</option>
+                  <option value="nica">NIC Asia Bank(NICA)</option>
+                  <option value="nica">NIC Asia Bank(NICA)</option>
+                </select>
               </div>
               <button class="main-search-button" name="lstm" type="submit">
                 Search
