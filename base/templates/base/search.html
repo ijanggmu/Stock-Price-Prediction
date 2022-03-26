@@ -45,7 +45,7 @@ var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: [{% for i in final %}{{i.Date|date:"m"}},{% endfor %}],
+        labels: [{% for i in final %}{{i.Date|date:"d"}},{% endfor %}],
         datasets: [{
             label: 'Actual Price',
             data: [{% for i in final %}{{i.Close}},{% endfor %}]
@@ -55,7 +55,7 @@ var myChart = new Chart(ctx, {
       data:[{% for i in final %}{{i.prediction}},{% endfor %}]
    }]
    },
-    options: {
+    options: {  
         scales: {
             xAxes: [{
               display: true
