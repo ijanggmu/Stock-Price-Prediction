@@ -9,7 +9,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-7 mx-auto text-center">
-        <h1 class="display-4 text-white">Stock Prediction Using AI and RNN</h1>
+        <h1 class="display-4 text-white">Stock Prediction and Forecasting <br> Using LSTM Alogrithm</h1>
         <!--Search bar-->
         <form method="Post" action="/search/">
           {%csrf_token%}
@@ -19,13 +19,10 @@
               <div class="main-search-input-item">
               <select name="search_text" class="main-search-input-item">
                   <option value="none">Choose a Stock</option>
-                  <option value="bokl">Bank of Kathmandu (Bokl)</option>
+                  <option value="nabil">Nabil Bank Limited(NABIL)</option>
                   <option value="forward">Forward (Forward)</option>
-                  <option value="nbbbl">NIC Asia Bank(NICA)</option>
+                  <option value="nica">NIC Asia Bank(NICA)</option>
                   <option value="ntc">Nepal Telecom Limited(NTC)</option>
-                  <option value="nica">NIC Asia Bank(NICA)</option>
-                  <option value="nica">NIC Asia Bank(NICA)</option>
-                  <option value="nica">NIC Asia Bank(NICA)</option>
                 </select>
               </div>
               <button class="main-search-button" name="lstm" type="submit">
@@ -35,10 +32,12 @@
           </div>
         </form>
         <!--//Search bar-->
-        <div class="col-lg-7 mx-auto text-center">
+        </div>
+        <div class="col-lg-10 mx-auto text-center">
           <p class="text-white my-3">
             It is a prediction system webapp that illuminates the risk that
-            undergoes during the investment in the stock market generate the pattern from large set of data of stock market for prediction of stock.
+            undergoes during the investment in the stock market generate the pattern from large set of data of stock market for prediction of stock.It provides
+            a 60 days Forecasting and prediction of historical data.
           </p>
           </p>
         </div>

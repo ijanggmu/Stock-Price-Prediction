@@ -48,7 +48,8 @@ var myChart = new Chart(ctx, {
         labels: [{% for i in final %}{{i.Date|date:"d"}},{% endfor %}],
         datasets: [{
             label: 'Actual Price',
-            data: [{% for i in final %}{{i.Close}},{% endfor %}]
+            data: [{% for i in final %}{{i.Close}},{% endfor %}],
+            
     },
     {
       label: 'Prediction Price',
