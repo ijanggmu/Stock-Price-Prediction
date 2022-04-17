@@ -160,6 +160,22 @@ def search(request):
             temp=dtp.iloc[i]
             final_data.append(dict(temp))
         # print(type(final_data))
+        array1 = dtp["Close"]
+        array2 = dtp["prediction"]
+        b=[]
+        for i in range(len(array1)):
+            b.append(abs(array1[i]-array2[i]))
+        a=sum(b)
+        b=sum(array1)
+        er=(a/b)*100
+        acc=100-er
+        
+        print(search_text,':',acc,'%')
+        
+        # for i in len(array1):
+        #     a=sum(array1[i]-array2[i])
+        #     b=sum(array1[i])
+        # print('acc:',' ',c)
         
         
 
@@ -192,9 +208,8 @@ def search(request):
         dtp.sort_values(["Date"],axis=0,ascending=[True], inplace=True)
         # print(dtp.tail())
         forecast_list=[]
-
+        
         batch=dfs[-features_set.shape[1]:].reshape((1,features_set.shape[1],1))
-
         for i in range(features_set.shape[1]):
             forecast_list.append(loaded_model.predict(batch)[0])
             batch = np.append(batch[:,1:,:], [[forecast_list[i]]], axis=1)
@@ -215,17 +230,22 @@ def search(request):
         for i in range(forecasts_final.shape[0]):
             temp=forecasts_final.iloc[i]
             forcast_data.append(dict(temp))
-        context={'search_text':search_text,'predictions':predictions,'dtp':dtp,'final':final_data,'dat':index_d,'forecast':forcast_data}
+        context={'acc':acc,'search_text':search_text,'predictions':predictions,'dtp':dtp,'final':final_data,'dat':index_d,'forecast':forcast_data}
         return render(request, 'base/search.html',context)
 
-
-
-@login_required(login_url='login')       
+       
 def stock(request):
     if request.method =='POST':
         uploaded_file=request.FILES['document']
         title=request.POST['text']
         savefile=FileSystemStorage()
+        temp={}
+        temp ['nuron']=request.POST.get('Neuron')
+        temp ['do']=request.POST.get('Drp')
+        temp ['ts']=request.POST.get('TS')
+        temp ['ep']=request.POST.get('Ep')
+        temp ['bs']=request.POST.get('BS')
+
         name=savefile.save('data/'+ title +'.csv',uploaded_file)
         df=pd.read_csv('data/'+title+'.csv')
         df.sort_values(by=['Date'],ascending=[True],inplace=True)
@@ -252,8 +272,8 @@ def stock(request):
         dfs = scaler.fit_transform(dfp)
         features_set = []
         labels = []
-        for i in range(60, len(dfp)):
-            features_set.append(dfs[i-60:i, 0])
+        for i in range(int(temp['ts']), len(dfp)):
+            features_set.append(dfs[i-int(temp['ts']):i, 0])
             labels.append(dfs[i, 0])
         features_set, labels = np.array(features_set), np.array(labels)
         features_set = np.reshape(
@@ -261,26 +281,26 @@ def stock(request):
         features_set.shape
         model = Sequential()
 
-        model.add(LSTM(units=50, return_sequences=True,
+        model.add(LSTM(units=int(temp['nuron']), return_sequences=True,
                 input_shape=(features_set.shape[1], 1)))
 
-        model.add(Dropout(0.2))
+        model.add(Dropout(float(temp['do'])))
 
-        model.add(LSTM(units=50, return_sequences=True))
-        model.add(Dropout(0.2))
+        model.add(LSTM(units=int(temp['nuron']), return_sequences=True))
+        model.add(Dropout(float(temp['do'])))
 
-        model.add(LSTM(units=50, return_sequences=True))
-        model.add(Dropout(0.2))
+        model.add(LSTM(units=int(temp['nuron']), return_sequences=True))
+        model.add(Dropout(float(temp['do'])))
 
-        model.add(LSTM(units=50))
-        model.add(Dropout(0.2))
-
+        model.add(LSTM(units=int(temp['nuron'])))
+        model.add(Dropout(float(temp['do'])))
         model.add(Dense(units=1))
-
         model.compile(optimizer='adam', loss='mean_squared_error')
-
-        model.fit(features_set, labels, epochs=50, batch_size=20)
+        model.fit(features_set, labels, epochs=int(temp['ep']), batch_size=int(temp['bs']))
         filename=title.lower()
         model.save('models/'+ filename +'.h5')
+        results = model.evaluate(features_set, labels)
+
+        
     return render(request,'base/stock.html')
     

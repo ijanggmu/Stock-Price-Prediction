@@ -1,14 +1,44 @@
 {% extends 'base/main.html' %} {% block content %} {% load static %} 
 <div>
 <div>
-<h1>CSV FILE upload
+
 </div>
 <div>
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
+    
+    <div class="container-sm">
+    <div class="form-group">
+        <h2 class="text-center my-3">Upload CSV file to Make A Prediction Model Having Your Desire Parameter</h2>
     <input type="file" name="document" id="document" required="required"></input>
-    <input type="text" name="text" id="text" required="required"></br>title</br></input>
-    <button id="submit">Upload</button>
+    </div>
+    <div class="form-group my-3">
+        <label>Title</label>
+        <input class="form-control" type="text" name="text" id="text" placeholder="Enter Title" required="required"></input>
+    </div>
+    <div class="form-group my-3">
+        <label>Neuron</label>
+        <input class="form-control" type="number" name="Neuron" id="Neuron" placeholder="Enter Neuron" required="required"></input>
+    </div>
+    <div class="form-group my-3">
+        <label>Dropout</label>
+        <input class="form-control" type="text" name="Drp" id="Drp" placeholder="Enter Dropout" required="required"></input>
+    </div>
+    <div class="form-group my-3">
+        <label>TimeStamp</label>
+        <input class="form-control" type="number" name="TS" id="TS" placeholder="Enter TimeStamp" required="required"></input>
+    </div>
+    <div class="form-group my-3">
+        <label>Epoch</label>
+        <input class="form-control" type="number" name="Ep" id="Ep" placeholder="Enter Epoch" required="required"></input>
+    </div>
+    <div class="form-group my-3">
+        <label>Batch Size</label>
+        <input class="form-control" type="number" name="BS" id="BS"  placeholder="Enter Batch Size" required="required"></input>
+    </div>
+    <button class="btn btn-success btn-default " id="submit">Upload</button>
+    <button class="btn btn-success btn-default ">Prediction</button>
+</div>
 
 </form>
 </div>

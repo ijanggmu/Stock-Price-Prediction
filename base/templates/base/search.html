@@ -4,6 +4,7 @@
 <!-- HERO -->
 <section class="row w-100 py-5 justify-content-center bg-light" id="features">
     <h1>Forecast of {{search_text}}</h1>
+    <h3>Accuracy of {{search_text}} model is {{acc}} %</h3>
 {% comment %} <div class="col-lg-4"><table class="table table-dark">
   <thead>
     <tr>
@@ -45,7 +46,7 @@ var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: [{% for i in final %}{{i.Date|date:"d"}},{% endfor %}],
+        labels: [{% for i in final %}{{i.Date|date:"Y"}},{% endfor %}],
         datasets: [{
             label: 'Actual Price',
             data: [{% for i in final %}{{i.Close}},{% endfor %}],
