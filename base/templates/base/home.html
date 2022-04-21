@@ -1,53 +1,48 @@
 {% extends 'base/main.html' %} {% block content %} {% load static %}
 
 <!-- HERO -->
-<div
-  style="background-image: url('{% static 'images/cover123.jpg' %}')"
-  class="hero vh-100 d-flex align-items-center"
-  id="home"
->
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-7 mx-auto text-center">
-        <h1 class="display-4 text-white">Stock Prediction and Forecasting <br> Using LSTM Alogrithm</h1>
-        <!--Search bar-->
-        <form method="Post" action="/search/">
-          {%csrf_token%}
-          <div class="main-search-input-wrap">
-            
-            <div class="main-search-input fl-wrap">
-              <div class="main-search-input-item">
-              <select name="search_text" class="main-search-input-item">
+<div style="background-image: url('{% static 'images/cover123.jpg' %}')" class="hero vh-100 d-flex align-items-center" id="home">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 mx-auto text-center">
+                <h1 class="display-4 text-white">Stock Prediction and Forecasting <br> Using LSTM Alogrithm</h1>
+                <!--Search bar-->
+                <form method="Post" action="/search/">
+                    {%csrf_token%}
+                    <div class="main-search-input-wrap">
+
+                        <div class="main-search-input fl-wrap">
+                            <div class="main-search-input-item">
+                                <select name="search_text" class="main-search-input-item">
                   <option value="none">Choose a Stock</option>
                   <o++ption value="nabil">Nabil Bank Limited(NABIL)</o++ption>
                   <option value="forward">Forward (Forward)</option>
                   <option value="nica">NIC Asia Bank(NICA)</option>
                   <option value="ntc">Nepal Telecom Limited(NTC)</option>
                   <option value="ebl123">Everest Bank Limited(EBL)</option>
+                  <option value="ebl_test">Everest Bank Limited_test(EBL)</option>
                   
                 </select>
-              </div>
-              <button class="main-search-button" name="lstm" type="submit">
+                            </div>
+                            <button class="main-search-button" name="lstm" type="submit">
                 Search
               </button>
+                        </div>
+                    </div>
+                </form>
+                <!--//Search bar-->
             </div>
-          </div>
-        </form>
-        <!--//Search bar-->
+            <div class="col-lg-10 mx-auto text-center">
+                <p class="text-white my-3">
+                    It is a prediction system webapp that illuminates the risk that undergoes during the investment in the stock market generate the pattern from large set of data of stock market for prediction of stock.It provides a 60 days Forecasting and prediction of
+                    historical data.
+                </p>
+                </p>
+            </div>
+            {% comment %} <a href="#" class="btn me-2 btn-primary">Get Started</a>
+            <a href="#" class="btn btn-outline-light">My Profile</a> {% endcomment %}
         </div>
-        <div class="col-lg-10 mx-auto text-center">
-          <p class="text-white my-3">
-            It is a prediction system webapp that illuminates the risk that
-            undergoes during the investment in the stock market generate the pattern from large set of data of stock market for prediction of stock.It provides
-            a 60 days Forecasting and prediction of historical data.
-          </p>
-          </p>
-        </div>
-        {% comment %} <a href="#" class="btn me-2 btn-primary">Get Started</a>
-        <a href="#" class="btn btn-outline-light">My Profile</a> {% endcomment %}
-      </div>
     </div>
-  </div>
 </div>
-{%include 'base/features.html'%} {%include 'base/team.html'%}
-{%include 'base/contact.html'%}{% include 'base/about.html' %} {% endblock %}
+</div>
+{%include 'base/features.html'%} {%include 'base/team.html'%} {%include 'base/contact.html'%}{% include 'base/about.html' %} {% endblock %}
